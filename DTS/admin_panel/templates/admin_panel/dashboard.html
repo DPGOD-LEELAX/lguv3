@@ -1,0 +1,117 @@
+
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    {% include 'admin_panel/nav.html' %}
+    <link rel="stylesheet" href="{% static 'admin_panel/css/table_style.css' %}" />
+
+    <div class="home-content">
+
+        <div class="overview-boxes">
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Documents</div>
+                    <div class="number">{{ total_documents }}</div>
+                    <div class="indicator">
+                        <i class="bx bx-up-arrow-alt"></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                
+                <i class="bx bx-cart-alt cart"></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">New Users</div>
+                    <div class="number">38</div>
+                    <div class="indicator">
+                        <i class="bx bx-up-arrow-alt"></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                <i class="bx bxs-cart-add cart two"></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Sales</div>
+                    <div class="number">12,876</div>
+                    <div class="indicator">
+                        <i class="bx bx-up-arrow-alt"></i>
+                        <span class="text">Up from yesterday</span>
+                    </div>
+                </div>
+                <i class="bx bx-cart cart three"></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Expenses</div>
+                    <div class="number">$12,876</div>
+                    <div class="indicator">
+                        <i class="bx bx-down-arrow-alt down"></i>
+                        <span class="text">Down from yesterday</span>
+                    </div>
+                </div>
+                <i class="bx bxs-cart-download cart four"></i>
+            </div>
+        </div>
+
+      
+
+        <div class="document-section">
+            <div class="recent-documents box">
+                <div class="section-title">Recent Documents</div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search documents..." />
+                </div>
+                <div class="document-details">
+                    <table class="document-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Uploaded At</th>
+                                <th>From Person</th>
+                                <th>Reference Number</th>
+                                <th>Action</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for document in documents %}
+                            <tr>
+                                <td>{{ document.title }}</td>
+                                <td>{{ document.get_status_display }}</td>
+                                <td>{{ document.assigned_to }}</td>
+                                <td>{{ document.uploaded_at }}</td>
+                                <td>{{ document.from_person }}</td>
+                                <td>{{ document.reference_number }}</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Actions</button>
+                                        <div class="action-dropdown-content">
+                                            <a href="#">View Details</a>
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="view-all-button">
+                    <a href="#">See All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'admin_panel/js/script.js' %}"></script>
+    <script src="{% static 'admin_panel/js/searchbar.js' %}"></script>
+    <script>
+    
+    </script>
+{% endblock %}

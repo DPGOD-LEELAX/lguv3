@@ -1,0 +1,21 @@
+<!-- admin_panel/templates/admin_panel/base.html -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin_panel/css/main_style.css' %}" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <div class="sidebar">
+        {% include 'admin_panel/sidebar.html' %}
+    </div>
+    <section class="home-section">
+        {% block content %}{% endblock %}
+    </section> 
+    <script src="{% static 'admin_panel/js/main.js' %}"></script>
+</body>
+</html>

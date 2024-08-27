@@ -1,0 +1,77 @@
+.home-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f4f8; /* Light gray background */
+    padding: 20px;
+    box-sizing: border-box; /* Ensures padding does not affect element width */
+}
+
+.upload-form {
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 700px;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding does not affect element width */
+    border: 1px solid #e0e0e0; /* Light border for subtle separation */
+}
+
+.upload-form h1 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #333; /* Darker text color for better readability */
+    text-align: center; /* Centered heading */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555; /* Slightly lighter color for labels */
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensures padding does not affect element width */
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.error-message {
+    color: #e74c3c; /* Red color for error messages */
+    margin-bottom: 20px;
+    text-align: center; /* Centered error message */
+    font-size: 16px;
+}
+
+.submit-button {
+    background-color: #007bff; /* Primary button color */
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    text-align: center; /* Centered button text */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}

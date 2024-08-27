@@ -1,0 +1,57 @@
+<!-- admin_panel/templates/admin_panel/sidebar.html -->
+<div class="logo-details">
+    <i class="bx bxl-c-plus-plus"></i>
+    <span class="logo_name">DTS</span>
+</div>
+<ul class="nav-links">
+    <li>
+        <a href="{% url 'admin_panel:dashboard' %}" class="">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="bx bx-folder"></i>
+            <span class="links_name">File Manager</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'upload:upload_document' %}">
+            <i class="bx bx-upload"></i>
+            <span class="links_name">Upload Document</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="#">
+            <i class="bx bx-map"></i>
+            <span class="links_name">Track Document</span>
+        </a>
+    </li>    
+    <li>
+        <a href="#">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Settings</span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="bx bx-message-detail"></i>
+            <span class="links_name">Messages</span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="bx bx-bell"></i>
+            <span class="links_name">Notifications</span>
+        </a>
+    </li>
+    <li class="log_out">
+        <a href="#">
+            <i class="bx bx-log-out"></i>
+            <span class="links_name">Log out</span>
+        </a>
+    </li>
+</ul>

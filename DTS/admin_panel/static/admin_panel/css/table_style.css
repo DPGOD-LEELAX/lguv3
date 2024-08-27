@@ -1,0 +1,128 @@
+.document-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the table */
+}
+
+.recent-documents {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1620px; /* Set a max-width for the container */
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; /* Aligns the search input to the right */
+}
+
+#search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px; /* Adjust width as needed */
+}
+
+.document-details {
+    overflow-x: auto;
+}
+
+.document-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.document-table thead th {
+    background: #f4f4f4;
+    color: #333;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.document-table tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.document-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.document-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.action-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.action-dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.action-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.action-dropdown:hover .action-dropdown-content {
+    display: block;
+}
+
+.action-button {
+    background: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    display: inline-block;
+}
+
+.view-all-button {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.view-all-button a {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
