@@ -1,0 +1,61 @@
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .step-links a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .step-links a:hover {
+    background-color: #0056b3;
+}
+
+.pagination .step-links .current {
+    margin: 0 5px;
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 4px;
+}
+
+.pagination .step-links span {
+    display: inline-block;
+}
+
+.document-table-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.document-table {
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.next-page {
+    transform: translateX(100%);
+}
+
+.previous-page {
+    transform: translateX(-100%);
+}
+

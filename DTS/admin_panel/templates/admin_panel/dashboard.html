@@ -6,6 +6,10 @@
 {% block content %}
     {% include 'admin_panel/nav.html' %}
     <link rel="stylesheet" href="{% static 'admin_panel/css/table_style.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin_panel/css/pagination.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin_panel/css/view_details.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin_panel/css/edit_details.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin_panel/css/action_icons.css' %}" />
 
     <div class="home-content">
 
@@ -75,7 +79,7 @@
                                 <th>Uploaded At</th>
                                 <th>From Person</th>
                                 <th>Reference Number</th>
-                                <th>Action</th> 
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,29 +92,121 @@
                                 <td>{{ document.from_person }}</td>
                                 <td>{{ document.reference_number }}</td>
                                 <td>
-                                    <div class="action-dropdown">
-                                        <button class="action-button">Actions</button>
-                                        <div class="action-dropdown-content">
-                                            <a href="#">View Details</a>
-                                            <a href="#">Edit</a>
-                                            <a href="#">Delete</a>
+
+
+                                    {% comment %} ACTION ICONS {% endcomment %}
+
+                                    
+                                    <div class="action-icons">
+                                        <div class="action-icon-box">
+                                            <a href="#" onclick="openModal({{ document.id }})" class="action-icon" title="View Details"><i class="bx bx-show"></i></a>
+                                        </div>
+                                        <div class="action-icon-box">
+                                            <a href="#" onclick="openEditModal({{ document.id }})" class="action-icon" title="Edit"><i class="bx bx-edit"></i></a>
+                                        </div>
+                                        <div class="action-icon-box">
+                                            <a href="#" class="action-icon" title="Delete"><i class="bx bx-trash"></i></a>
+                                        </div>
+                                        <div class="action-icon-box">
+                                            <a href="#" class="action-icon" title="Approve"><i class="bx bx-check"></i></a>
+                                        </div>
+                                        <div class="action-icon-box">
+                                            <a href="#" class="action-icon" title="Generate Tracking Slip"><i class="bx bx-receipt"></i></a>
                                         </div>
                                     </div>
+                                    
+                                    
+                                    
+                                    
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <div class="view-all-button">
-                    <a href="#">See All</a>
+     
+                <!-- Pagination controls -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if documents.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ documents.previous_page_number }}">Previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ documents.number }} of {{ documents.paginator.num_pages }}.
+                        </span>
+                
+                        {% if documents.has_next %}
+                            <a href="?page={{ documents.next_page_number }}">Next</a>
+                            <a href="?page={{ documents.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
                 </div>
+                
+                
             </div>
         </div>
+        
     </div>
+
+
+    <!-- Modal Structures (VIEW DETAILS)-->
+
+<div id="documentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Document Details</h2>
+        <p><strong>Title:</strong> <span id="modalTitle"></span></p>
+        <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+        <p><strong>Assigned To:</strong> <span id="modalAssignedTo"></span></p>
+        <p><strong>Uploaded At:</strong> <span id="modalUploadedAt"></span></p>
+        <p><strong>From Person:</strong> <span id="modalFromPerson"></span></p>
+        <p><strong>Reference Number:</strong> <span id="modalReferenceNumber"></span></p>
+        <p><strong>Remarks:</strong> <span id="modalRemarks"></span></p>
+    </div>
+</div>
+
+<!-- Edit Modal Structure -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Document</h2>
+        <form id="editForm">
+            <input type="hidden" id="editDocumentId">
+            <div class="form-group">
+                <label for="editTitle">Title:</label>
+                <input type="text" id="editTitle" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="editStatus">Status:</label>
+                <select id="editStatus" name="status">
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="archived">Archived</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editAssignedTo">Assigned To:</label>
+                <input type="text" id="editAssignedTo" name="assigned_to">
+            </div>
+            <div class="form-group">
+                <label for="editRemarks">Remarks:</label>
+                <textarea id="editRemarks" name="remarks"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+
 
     <script src="{% static 'admin_panel/js/script.js' %}"></script>
     <script src="{% static 'admin_panel/js/searchbar.js' %}"></script>
+    <script src="{% static 'admin_panel/js/paginator.js' %}"></script>
+    <script src="{% static 'admin_panel/js/view_details.js' %}"></script>
+    <script src="{% static 'admin_panel/js/edit_details.js' %}"></script>
     <script>
     
     </script>

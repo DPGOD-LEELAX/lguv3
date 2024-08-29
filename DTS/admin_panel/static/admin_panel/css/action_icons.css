@@ -1,0 +1,68 @@
+.action-icons {
+    display: flex;
+    gap: 8px; /* Space between icon boxes */
+}
+
+.action-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; /* Width of the icon box */
+    height: 30px; /* Height of the icon box */
+    background-color: #f0f0f0; /* Background color */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Light shadow */
+    position: relative; /* Needed for positioning the underline */
+}
+
+.action-icon {
+    text-decoration: none;
+    color: #333; /* Default icon color */
+    font-size: 16px; /* Icon size */
+    position: relative; /* Needed for positioning the underline */
+}
+
+/* Underline effect */
+.action-icon-box::after {
+    content: '';
+    position: absolute;
+    bottom: -11px; /* Position the underline below the icon */
+    left: 0;
+    width: 100%; /* Full width of the icon box */
+    height: 2px; /* Thickness of the underline */
+    background-color: #007bff; /* Color of the underline */
+    transform: scaleX(0); /* Initially hidden */
+    transform-origin: bottom left; /* Ensure it grows from the left */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+/* Show underline and keep icon color on hover */
+.action-icon-box:hover::after {
+    transform: scaleX(1); /* Scale to full width on hover */
+}
+
+/* Icon color on hover */
+.action-icon:hover {
+    color: #007bff; /* Color of the icon on hover */
+}
+
+/* Specific icon colors */
+.action-icon i.bx-show {
+    color: #28a745; /* Green color for View Details */
+}
+
+.action-icon i.bx-edit {
+    color: #ffc107; /* Yellow color for Edit */
+}
+
+.action-icon i.bx-trash {
+    color: #dc3545; /* Red color for Delete */
+}
+
+.action-icon i.bx-check {
+    color: #17a2b8; /* Teal color for Approve */
+}
+
+.action-icon i.bx-receipt {
+    color: #6c757d; /* Gray color for Generate Tracking Slip */
+}
