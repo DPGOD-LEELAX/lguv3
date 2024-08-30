@@ -6,6 +6,7 @@ class Document(models.Model):
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('archived', 'Archived'),
+        ('disable', 'Disable'),
     ]
     
     DOCUMENT_TYPE_CHOICES = [

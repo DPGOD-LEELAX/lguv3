@@ -1,0 +1,198 @@
+
+.view-details-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    animation: fadeIn 0.3s ease; /* Fade-in effect */
+}
+
+/* Modal Content Box */
+.view-details-modal .modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* You can adjust the width */
+    max-width: 600px; /* Max width for larger screens */
+    border-radius: 10px;
+    position: absolute; /* Use absolute positioning for better centering */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: slideIn 0.4s ease; /* Slide-in effect */
+}
+
+/* Close Button */
+.view-details-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.view-details-close:hover,
+.view-details-close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Slide-in Animation */
+@keyframes slideIn {
+    from {opacity: 0; transform: translate(-50%, -60%);}
+    to {opacity: 1; transform: translate(-50%, -50%);}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+edit
+
+/* Modal Background */
+.edit-details-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; /* Ensures it's on top of other content */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay for better focus */
+    animation: fadeIn 0.4s ease; /* Fade-in effect */
+}
+
+/* Modal Content Box */
+.edit-details-modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px; /* Increased padding for a more spacious feel */
+    border: none; /* Removed border for a cleaner look */
+    width: 90%; /* Increased width for a more prominent appearance */
+    max-width: 600px; /* Larger max-width for more content space */
+    border-radius: 12px; /* Rounded corners for a modern look */
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Enhanced shadow for depth */
+    animation: slideIn 0.5s ease; /* Slide-in effect */
+    max-height: 80vh; /* Limit height to 80% of viewport height */
+    overflow-y: auto; /* Scrollable content if it exceeds max-height */
+}
+
+/* Close Button */
+.edit-details-close {
+    color: #555; /* Softer color for better integration */
+    float: right;
+    font-size: 28px; /* Larger font size for accessibility */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.edit-details-close:hover {
+    color: #000;
+    transform: scale(1.1); /* Slightly enlarge on hover for emphasis */
+}
+
+/* Form Group */
+.edit-details-form-group {
+    margin-bottom: 20px;
+}
+
+.edit-details-form-group label {
+    display: block;
+    margin-bottom: 10px; /* Increased spacing for better readability */
+    font-weight: 600; /* Bolder font weight for labels */
+    color: #333; /* Darker color for better contrast */
+}
+
+.edit-details-form-group input,
+.edit-details-form-group select,
+.edit-details-form-group textarea {
+    width: 100%;
+    padding: 12px; /* Increased padding for more comfort */
+    border: 1px solid #ddd; /* Softer border color */
+    border-radius: 6px; /* Rounded corners for input fields */
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333; /* Darker text color for readability */
+}
+
+/* Enhanced textarea */
+.edit-details-form-group textarea {
+    resize: vertical;
+    min-height: 100px; /* Increased minimum height for better usability */
+}
+
+/* Submit Button */
+.edit-details-submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 14px 24px; /* Increased padding for a more substantial look */
+    border: none;
+    border-radius: 6px; /* Rounded corners for buttons */
+    cursor: pointer;
+    font-size: 18px; /* Larger font size for better readability */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.edit-details-submit-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slightly enlarge on hover for emphasis */
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slide-in Animation */
+@keyframes slideIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+
+
+
+
+
+
+

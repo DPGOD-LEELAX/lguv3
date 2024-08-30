@@ -1,41 +1,38 @@
-// Get modal elements
-var modal = document.getElementById("documentModal");
-var closeBtn = document.getElementsByClassName("close")[0];
-
-// Function to open the modal with document details
-// Function to open the modal with document details
-function openModal(documentId) {
-    // Fetch document details using AJAX
+// Function to open the "View Details" modal and fetch document details
+function openViewDetailsModal(documentId) {
     fetch(`/document/${documentId}/details/`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);  // Debug: Check the data structure
-            
-            // Update modal content
-            document.getElementById("modalTitle").textContent = data.title || 'N/A';
-            document.getElementById("modalStatus").textContent = data.status || 'N/A';
-            document.getElementById("modalAssignedTo").textContent = data.assigned_to || 'N/A';
-            document.getElementById("modalUploadedAt").textContent = data.uploaded_at ? new Date(data.uploaded_at).toLocaleString() : 'N/A';
-            document.getElementById("modalFromPerson").textContent = data.from_person || 'N/A';
-            document.getElementById("modalReferenceNumber").textContent = data.reference_number || 'N/A';
-            document.getElementById("modalRemarks").textContent = data.remarks || 'N/A';
-            
-            modal.style.display = "block";
+            if (data.error) {
+                alert(data.error);
+            } else {
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalStatus').textContent = data.status;
+                document.getElementById('modalAssignedTo').textContent = data.assigned_to;
+                document.getElementById('modalUploadedAt').textContent = data.uploaded_at;
+                document.getElementById('modalFromPerson').textContent = data.from_person;
+                document.getElementById('modalReferenceNumber').textContent = data.reference_number;
+                document.getElementById('modalRemarks').textContent = data.remarks;
+
+                document.getElementById('viewDetailsModal').style.display = 'block';
+            }
         })
         .catch(error => {
             console.error('Error fetching document details:', error);
         });
 }
 
+// Close the modal when the user clicks the close button
+document.querySelectorAll('.view-details-close').forEach(closeButton => {
+    closeButton.onclick = function() {
+        this.closest('.view-details-modal').style.display = 'none';
+    };
+});
 
-// Close the modal when the user clicks on the close button
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-// Close the modal when the user clicks anywhere outside of the modal
+// Close the modal if the user clicks anywhere outside of it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    const modal = document.getElementById('viewDetailsModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
     }
-}
+};

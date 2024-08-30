@@ -1,56 +1,112 @@
-// Get the edit modal elements
-var editModal = document.getElementById("editModal");
-var editCloseBtn = editModal.getElementsByClassName("close")[0];
+// // Function to open the edit details modal
+// function openEditDetailsModal(documentId) {
+//     // Fetch document details and populate the form (dummy implementation)
+//     document.getElementById('editDetailsModal').style.display = 'block';
+// }
 
-// Function to open the edit modal with document details pre-filled
-function openEditModal(documentId) {
-    // Fetch document details using AJAX
-    fetch(`/document/${documentId}/details/`)
+// // Close the edit details modal when the user clicks the close button
+// document.querySelectorAll('.edit-details-close').forEach(closeButton => {
+//     closeButton.onclick = function() {
+//         document.getElementById('editDetailsModal').style.display = 'none';
+//     };
+// });
+
+// // Close the edit details modal if the user clicks anywhere outside of it
+// window.onclick = function(event) {
+//     if (event.target === document.getElementById('editDetailsModal')) {
+//         document.getElementById('editDetailsModal').style.display = 'none';
+//     }
+// };
+
+// // Toggle custom document type field visibility
+// function toggleCustomTypeField() {
+//     const documentTypeSelect = document.getElementById('editDetailsDocumentType');
+//     const customTypeContainer = document.getElementById('customTypeContainer');
+//     customTypeContainer.style.display = documentTypeSelect.value === 'Others' ? 'block' : 'none';
+// }
+
+
+
+
+    // Function to open the edit details modal
+    function openEditDetailsModal(documentId) {
+        fetch(`/document/${documentId}/details/`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById('editDetailsId').value = data.id;
+                    document.getElementById('editDetailsTitle').value = data.title;
+                    document.getElementById('editDetailsStatus').value = data.status;
+                    document.getElementById('editDetailsAssignedTo').value = data.assigned_to;
+                    document.getElementById('editDetailsFromPerson').value = data.from_person;
+                    document.getElementById('editDetailsRemarks').value = data.remarks;
+                    document.getElementById('editDetailsDocumentType').value = data.document_type;
+                    document.getElementById('editDetailsOtherDocumentType').value = data.other_document_type;
+                    
+                    // Handle custom document type visibility
+                    const customTypeContainer = document.getElementById('customTypeContainer');
+                    if (data.document_type === 'Others') {
+                        customTypeContainer.style.display = 'block';
+                    } else {
+                        customTypeContainer.style.display = 'none';
+                    }
+                    
+                    document.getElementById('editDetailsModal').style.display = 'block';
+                }
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
+    }
+
+    // Close the edit details modal when the user clicks the close button
+    document.querySelector('.edit-details-close').addEventListener('click', () => {
+        document.getElementById('editDetailsModal').style.display = 'none';
+    });
+
+    // Handle form submission
+    document.getElementById('editDetailsForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        fetch(`/document/${formData.get('document_id')}/update/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // To help identify the request as AJAX
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value // CSRF Token
+            }
+        })
         .then(response => response.json())
         .then(data => {
-            document.getElementById("editDocumentId").value = documentId;
-            document.getElementById("editTitle").value = data.title;
-            document.getElementById("editStatus").value = data.status;
-            document.getElementById("editAssignedTo").value = data.assigned_to;
-            document.getElementById("editRemarks").value = data.remarks;
-            editModal.style.display = "block";
-        });
-}
-
-// Close the edit modal when the user clicks on the close button
-editCloseBtn.onclick = function() {
-    editModal.style.display = "none";
-}
-
-// Close the edit modal when the user clicks anywhere outside of the modal
-window.onclick = function(event) {
-    if (event.target == editModal) {
-        editModal.style.display = "none";
-    }
-}
-
-// Handle the form submission for editing
-document.getElementById("editForm").onsubmit = function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    // Gather the form data
-    var documentId = document.getElementById("editDocumentId").value;
-    var formData = new FormData(this);
-
-    // Send an AJAX request to update the document
-    fetch(`/document/${documentId}/edit/`, {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Update the document in the UI, close the modal, etc.
-            editModal.style.display = "none";
-            // Optionally, refresh the page or update the document list dynamically
-        } else {
-            // Handle errors, display error messages, etc.
-            alert('Failed to update the document');
-        }
+            if (data.success) {
+                alert('Document updated successfully');
+                location.reload();  // Reload the page to reflect changes
+            } else {
+                alert('Error updating document');
+            }
+        })
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
     });
-}
+
+    // Close the edit details modal if the user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('editDetailsModal')) {
+            document.getElementById('editDetailsModal').style.display = 'none';
+        }
+    };
+
+    // Toggle custom document type field visibility
+    function toggleCustomTypeField() {
+        const documentTypeSelect = document.getElementById('editDetailsDocumentType');
+        const customTypeContainer = document.getElementById('customTypeContainer');
+        customTypeContainer.style.display = documentTypeSelect.value === 'Others' ? 'block' : 'none';
+    }
+
+

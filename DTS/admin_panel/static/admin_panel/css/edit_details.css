@@ -1,88 +1,127 @@
-/* Modal Container */
-.modal {
-    display: none; /* Hidden by default */
+/* Modal Background */
+.edit-details-modal {
+    display: none; 
     position: fixed; 
-    z-index: 1000; 
+    z-index: 1000; /* Ensures it's on top of other content */
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.4); 
-    justify-content: center;
-    align-items: center;
+    overflow: hidden; 
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)); /* Gradient overlay for better focus */
+    backdrop-filter: blur(5px); /* Subtle blur effect */
+    animation: fadeIn 0.4s ease-in-out; /* Smoother fade-in effect */
 }
 
-/* Modal Content */
-.modal-content {
-    background-color: #fff;
+/* Modal Content Box */
+.edit-details-modal-content {
+    background-color: #f9f9f9; /* Softer white background */
     margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease-out; /* Smooth animation */
+    padding: 35px; /* Increased padding for a more spacious feel */
+    border: none; /* Removed border for a cleaner look */
+    width: 85%; /* Slightly wider for better content display */
+    max-width: 700px; /* Larger max-width for more content space */
+    border-radius: 15px; /* Softer border radius for a modern look */
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Deeper shadow for better depth */
+    animation: slideIn 0.5s ease-in-out; /* Smoother slide-in effect */
+    max-height: 80vh; /* Limit height to 80% of viewport height */
+    overflow-y: auto; /* Scrollable content if it exceeds max-height */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.edit-details-modal-content::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+/* Hide scrollbar for other browsers (Cross-browser solution) */
+.edit-details-modal-content {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 /* Close Button */
-.close-button {
-    color: #aaa;
+.edit-details-close {
+    color: #666; /* Softer color for better integration */
     float: right;
-    font-size: 28px;
+    font-size: 30px; /* Larger font size for accessibility */
     font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
 }
 
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.edit-details-close:hover {
+    color: #222; /* Darker on hover for better emphasis */
+    transform: scale(1.15); /* Slightly enlarge on hover for emphasis */
 }
 
 /* Form Group */
-.form-group {
-    margin-bottom: 15px;
+.edit-details-form-group {
+    margin-bottom: 20px;
 }
 
-.form-group label {
+.edit-details-form-group label {
     display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 10px; /* Increased spacing for better readability */
+    font-weight: 600; /* Bolder font weight for labels */
+    color: #444; /* Darker color for better contrast */
 }
 
-.form-group input[type="text"],
-.form-group select,
-.form-group textarea {
+.edit-details-form-group input,
+.edit-details-form-group select,
+.edit-details-form-group textarea {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
+    padding: 14px; /* Increased padding for more comfort */
+    border: 1px solid #ccc; /* Softer border color */
+    border-radius: 8px; /* Rounded corners for input fields */
     box-sizing: border-box;
-    color: #333;
+    font-size: 16px;
+    color: #444; /* Darker text color for readability */
+    transition: border-color 0.3s ease; /* Smooth border transition */
+}
+
+.edit-details-form-group input:focus,
+.edit-details-form-group select:focus,
+.edit-details-form-group textarea:focus {
+    border-color: #66afe9; /* Border color change on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Enhanced textarea */
+.edit-details-form-group textarea {
+    resize: vertical;
+    min-height: 120px; /* Increased minimum height for better usability */
 }
 
 /* Submit Button */
-.submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+.edit-details-submit-button {
+    background-color: #28a745; /* Green background color */
+    color: #fff;
+    padding: 14px 28px; /* Increased padding for a more substantial look */
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    border-radius: 8px; /* Rounded corners for buttons */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 18px; /* Larger font size for better readability */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.submit-button:hover {
-    background-color: #45a049;
+.edit-details-submit-button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover for emphasis */
 }
 
-/* Fade In Animation */
+/* Fade-in Animation */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slide-in Animation */
+@keyframes slideIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
 }

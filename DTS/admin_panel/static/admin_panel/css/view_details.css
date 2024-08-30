@@ -1,55 +1,84 @@
-/* Modal background */
-.modal {
+/* Modal Background */
+.view-details-modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 1000; 
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.6); 
-    animation: fadeIn 0.3s ease; /* Fade-in effect */
+    overflow: hidden; 
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)); 
+    backdrop-filter: blur(5px); /* Add a subtle blur for a glassy effect */
+    animation: fadeIn 0.5s ease; /* Smoother fade-in effect */
 }
 
-/* Modal content box */
-.modal-content {
-    background-color: #fff;
+/* Modal Content Box */
+.view-details-modal .modal-content {
+    background-color: #ffffff;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* You can adjust the width */
-    border-radius: 10px;
-    position: relative;
+    padding: 25px 30px;
+    border: none;
+    width: 60%; /* Slightly wider for better content display */
+    max-width: 700px; /* Increased max width for larger screens */
+    border-radius: 15px; /* Softer border radius */
+    position: absolute; 
     top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: slideDown 0.4s ease; /* Slide down effect */
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow for more depth */
+    animation: slideIn 0.6s ease; /* Smoother slide-in effect */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Close button */
-.close {
-    color: #aaa;
+/* Close Button */
+.view-details-close {
+    color: #555;
     float: right;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.close:hover,
-.close:focus {
-    color: black;
+.view-details-close:hover,
+.view-details-close:focus {
+    color: #e74c3c; /* Red color on hover for better visibility */
     text-decoration: none;
 }
 
-/* Fade-in animation */
+/* Fade-in Animation */
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
 }
 
-/* Slide-down animation */
-@keyframes slideDown {
-    from {transform: translateY(-50%) translateY(-50px);}
-    to {transform: translateY(-50%);}
+/* Slide-in Animation */
+@keyframes slideIn {
+    from {opacity: 0; transform: translate(-50%, -60%) scale(0.9);}
+    to {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+}
+
+/* Optional: Add a bounce effect when the modal appears */
+@keyframes bounceIn {
+    0% { transform: translate(-50%, -50%) scale(0.9); }
+    50% { transform: translate(-50%, -45%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.view-details-modal .modal-content {
+    animation: bounceIn 0.6s ease-in-out; /* Apply bounce effect */
+}
+
+/* Improve content text styles */
+.view-details-modal .modal-content p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.view-details-modal .modal-content h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
 }

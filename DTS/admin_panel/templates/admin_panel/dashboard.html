@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'admin_panel/css/view_details.css' %}" />
     <link rel="stylesheet" href="{% static 'admin_panel/css/edit_details.css' %}" />
     <link rel="stylesheet" href="{% static 'admin_panel/css/action_icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin_panel/css/generate_tracking.css' %}"/>
+    <link rel="stylesheet" href="{% static 'admin_panel/css/disable.css' %}"/>
 
     <div class="home-content">
 
@@ -99,20 +101,27 @@
                                     
                                     <div class="action-icons">
                                         <div class="action-icon-box">
-                                            <a href="#" onclick="openModal({{ document.id }})" class="action-icon" title="View Details"><i class="bx bx-show"></i></a>
+                                            <a href="#" onclick="openViewDetailsModal({{ document.id }})" class="action-icon" title="View Details">
+                                                <i class="bx bx-show"></i>
+                                            </a>
+                                        </div>                                        
+                                        <div class="action-icon-box">
+                                            <a href="#" onclick="openEditDetailsModal({{ document.id }})" class="action-icon" title="Edit"><i class="bx bx-edit"></i></a>
                                         </div>
                                         <div class="action-icon-box">
-                                            <a href="#" onclick="openEditModal({{ document.id }})" class="action-icon" title="Edit"><i class="bx bx-edit"></i></a>
-                                        </div>
-                                        <div class="action-icon-box">
-                                            <a href="#" class="action-icon" title="Delete"><i class="bx bx-trash"></i></a>
+                                            <a href="#" class="action-icon" title="Delete" onclick="handleDeleteClick(this);">
+                                                <i class="bx bx-trash"></i>
+                                            </a>
                                         </div>
                                         <div class="action-icon-box">
                                             <a href="#" class="action-icon" title="Approve"><i class="bx bx-check"></i></a>
                                         </div>
                                         <div class="action-icon-box">
-                                            <a href="#" class="action-icon" title="Generate Tracking Slip"><i class="bx bx-receipt"></i></a>
+                                            <a href="{% url 'admin_panel:generate_tracking_slip' document.id %}" class="action-icon" title="Generate Tracking Slip">
+                                                <i class="bx bx-receipt"></i>
+                                            </a>
                                         </div>
+                                        
                                     </div>
                                     
                                     
@@ -153,9 +162,11 @@
 
     <!-- Modal Structures (VIEW DETAILS)-->
 
-<div id="documentModal" class="modal">
+   <!-- View Details Modal Structure -->
+<!-- Modal Structures (VIEW DETAILS) -->
+<div id="viewDetailsModal" class="view-details-modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="view-details-close">&times;</span>
         <h2>Document Details</h2>
         <p><strong>Title:</strong> <span id="modalTitle"></span></p>
         <p><strong>Status:</strong> <span id="modalStatus"></span></p>
@@ -167,39 +178,150 @@
     </div>
 </div>
 
-<!-- Edit Modal Structure -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
+
+
+<!-- Edit Details Modal Structure -->
+<div id="editDetailsModal" class="edit-details-modal">
+    <div class="edit-details-modal-content">
+        <span class="edit-details-close">&times;</span>
         <h2>Edit Document</h2>
-        <form id="editForm">
-            <input type="hidden" id="editDocumentId">
-            <div class="form-group">
-                <label for="editTitle">Title:</label>
-                <input type="text" id="editTitle" name="title" required>
+        <form id="editDetailsForm" method="POST">
+            <!-- CSRF Token -->
+            {% csrf_token %}
+            <input type="hidden" id="editDetailsId" name="document_id">
+
+            <!-- Title Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsTitle">Title:</label>
+                <input type="text" id="editDetailsTitle" name="title" required>
             </div>
-            <div class="form-group">
-                <label for="editStatus">Status:</label>
-                <select id="editStatus" name="status">
+
+            <!-- Status Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsStatus">Status:</label>
+                <select id="editDetailsStatus" name="status">
                     <option value="in_progress">In Progress</option>
                     <option value="completed">Completed</option>
                     <option value="archived">Archived</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="editAssignedTo">Assigned To:</label>
-                <input type="text" id="editAssignedTo" name="assigned_to">
+
+            <!-- Assigned To Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsAssignedTo">Assigned To:</label>
+                <input type="text" id="editDetailsAssignedTo" name="assigned_to">
             </div>
-            <div class="form-group">
-                <label for="editRemarks">Remarks:</label>
-                <textarea id="editRemarks" name="remarks"></textarea>
+
+            <!-- From Person Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsFromPerson">From Person:</label>
+                <input type="text" id="editDetailsFromPerson" name="from_person">
             </div>
-            <button type="submit" class="submit-button">Save Changes</button>
+
+            <!-- Document Type Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsDocumentType">Document Type:</label>
+                <select id="editDetailsDocumentType" name="document_type" required onchange="toggleCustomTypeField()">
+                    <option value="" disabled selected>Select Document Type</option>
+                    <option value="AIP">AIP</option>
+                    <option value="Advisory">Advisory</option>
+                    <option value="Application Letter">Application Letter</option>
+                    <option value="Authority to Travel">Authority to Travel</option>
+                    <option value="COC-DPWH">COC-DPWH</option>
+                    <option value="Certificate of No Pending Case">Certificate of No Pending Case</option>
+                    <option value="Class Observation Plan">Class Observation Plan</option>
+                    <option value="Communications">Communications</option>
+                    <option value="Conduct Research">Conduct Research</option>
+                    <option value="Daily Time Record (DTR)">Daily Time Record (DTR)</option>
+                    <option value="Designation Letter">Designation Letter</option>
+                    <option value="Disbursement Voucher">Disbursement Voucher</option>
+                    <option value="Division Clearance">Division Clearance</option>
+                    <option value="ERF">ERF</option>
+                    <option value="Endorsement of Transfer to other Division">Endorsement of Transfer to other Division</option>
+                    <option value="Fidelity Bond">Fidelity Bond</option>
+                    <option value="GSIS Maturity & Retirement Form">GSIS Maturity & Retirement Form</option>
+                    <option value="Instructional Supervisory Plan">Instructional Supervisory Plan</option>
+                    <option value="Itinerary of Travel">Itinerary of Travel</option>
+                    <option value="Job Order">Job Order</option>
+                    <option value="Leave Application">Leave Application</option>
+                    <option value="Legal Documents">Legal Documents</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <!-- Custom Document Type Field -->
+            <div class="edit-details-form-group" id="customTypeContainer" style="display: none;">
+                <label for="editDetailsOtherDocumentType">Custom Document Type:</label>
+                <input type="text" id="editDetailsOtherDocumentType" name="other_document_type">
+            </div>
+
+            <!-- Remarks Field -->
+            <div class="edit-details-form-group">
+                <label for="editDetailsRemarks">Remarks:</label>
+                <textarea id="editDetailsRemarks" name="remarks"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="edit-details-submit-button">Save Changes</button>
         </form>
     </div>
 </div>
 
 
+
+<!-- JavaScript for Modal Interaction and Form Submission -->
+
+
+
+
+
+
+{% comment %} GENERATE TACKING SLIP {% endcomment %}
+<!-- Trigger button -->
+<div class="action-icon-box">
+    <a href="#" class="action-icon" title="Generate Tracking Slip" onclick="openTrackingSlipModal({{ document.id }})">
+        <i class="bx bx-receipt"></i>
+    </a>
+</div>
+
+<!-- Modal Structure -->
+<div id="trackingSlipModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTrackingSlipModal()">&times;</span>
+        <h2>Tracking Slip</h2>
+        <iframe id="trackingSlipIframe" style="width:100%; height:500px;" frameborder="0"></iframe>
+    </div>
+</div>
+
+
+<!-- Disable Modal Structure -->
+<div id="disable-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal();">&times;</span>
+        <p>Do you want to disable this uploaded document?</p>
+        <input type="hidden" id="modal-item-id" value="">
+        <div class="modal-footer">
+            <button class="btn-yes" onclick="confirmDisable();">Yes, Disable</button>
+            <button class="btn-cancel" onclick="closeModal();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function openTrackingSlipModal(documentId) {
+        const iframe = document.getElementById('trackingSlipIframe');
+        iframe.src = `/document/${documentId}/generate_tracking_slip/`; 
+        document.getElementById('trackingSlipModal').style.display = 'block';
+    }
+    
+    function closeTrackingSlipModal() {
+        document.getElementById('trackingSlipModal').style.display = 'none';
+    }
+    
+</script>
 
 
     <script src="{% static 'admin_panel/js/script.js' %}"></script>
@@ -207,6 +329,8 @@
     <script src="{% static 'admin_panel/js/paginator.js' %}"></script>
     <script src="{% static 'admin_panel/js/view_details.js' %}"></script>
     <script src="{% static 'admin_panel/js/edit_details.js' %}"></script>
+    <script src="{% static 'admin_panel/js/generate_tracking.js' %}"></script>
+    <script src="{% static 'admin_panel/js/disable.js' %}"></script>
     <script>
     
     </script>
