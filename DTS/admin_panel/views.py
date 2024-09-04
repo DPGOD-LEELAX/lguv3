@@ -7,18 +7,32 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.graphics.barcode import code128
 from io import BytesIO
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 class DashboardView(View):
     def get(self, request):
+        status = request.GET.get('status', 'recent')  # Default to 'recent' if no status is provided
         total_documents = Document.objects.count()
-        document_list = Document.objects.all()
-        paginator = Paginator(document_list, 10)  
+
+        if status == 'approved':
+            document_list = Document.objects.filter(status='approved')
+        elif status == 'pending':
+            document_list = Document.objects.filter(status='pending')
+        elif status == 'completed':
+            document_list = Document.objects.filter(status='completed')
+        elif status == 'in_progress':
+            document_list = Document.objects.filter(status='in_progress')
+        else:
+            document_list = Document.objects.all()  # Default to all documents
+
+        paginator = Paginator(document_list, 10)
         page_number = request.GET.get('page', 1)  # Default to page 1 if no page number is provided
         documents = paginator.get_page(page_number)
+
         return render(request, 'admin_panel/dashboard.html', {
             'total_documents': total_documents,
-            'documents': documents,  
+            'documents': documents,
         })
 
 class DocumentDetailView(View):
@@ -85,3 +99,53 @@ def update_document(request, document_id):
     document.save()
 
     return JsonResponse({'success': 'Document updated successfully'})
+
+
+@require_POST
+@csrf_exempt
+# admin_panel/views.py
+
+
+
+@require_POST
+def approve_document(request, doc_id):
+    try:
+        document = Document.objects.get(id=doc_id)
+        document.status = 'Approved'  # Set your desired status
+        document.save()
+        return JsonResponse({'success': True})
+    except Document.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Document not found'}, status=404)
+
+    
+
+    
+class FilterDocumentsView(View):
+    def get(self, request):
+        status = request.GET.get('status', 'recent')
+        if status == 'recent':
+            documents = Document.objects.all().order_by('-uploaded_at')
+        elif status == 'approved':
+            documents = Document.objects.filter(status='Approved').order_by('-uploaded_at')
+        elif status == 'pending':
+            documents = Document.objects.filter(status='Pending').order_by('-uploaded_at')
+        elif status == 'completed':
+            documents = Document.objects.filter(status='Completed').order_by('-uploaded_at')
+        elif status == 'in_progress':
+            documents = Document.objects.filter(status='In Progress').order_by('-uploaded_at')
+        else:
+            documents = Document.objects.none()
+
+        paginator = Paginator(documents, 10)
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+
+        documents_list = list(page_obj.object_list.values('id', 'title', 'status', 'assigned_to', 'uploaded_at', 'from_person', 'reference_number'))
+        
+        return JsonResponse({
+            'documents': documents_list,
+            'has_previous': page_obj.has_previous(),
+            'has_next': page_obj.has_next(),
+            'current_page': page_obj.number,
+            'total_pages': paginator.num_pages
+        })

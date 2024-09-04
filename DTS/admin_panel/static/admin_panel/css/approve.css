@@ -1,0 +1,109 @@
+/* Unique Modal Background */
+#uniqueApproveModal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for more focus */
+    animation: uniqueApproveFadeIn 0.4s ease; 
+}
+
+/* Unique Modal Content Box */
+#uniqueApproveModal .unique-modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 40px; /* Increased padding for a more spacious feel */
+    border: none; 
+    width: 90%; 
+    max-width: 500px; /* Adjusted max-width for a more compact look */
+    border-radius: 16px; /* More rounded corners for a modern look */
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4); /* Enhanced shadow for more depth */
+    animation: uniqueApproveSlideIn 0.6s ease; /* Longer slide-in effect for smoother appearance */
+    text-align: center;
+    overflow: hidden; /* Ensure no content overflows */
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Gradient background for depth */
+}
+
+/* Unique Close Button */
+#uniqueApproveModal .unique-modal-close {
+    color: #888; /* Softer color */
+    float: right;
+    font-size: 32px; /* Larger font size for better accessibility */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+#uniqueApproveModal .unique-modal-close:hover {
+    color: #333; /* Darker color for better contrast on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Unique Modal Body */
+#uniqueApproveModal .unique-modal-content p {
+    font-size: 18px; /* Adjusted font size for readability */
+    margin-bottom: 30px; /* Spacing below the text */
+    color: #666; /* Slightly lighter color for body text */
+}
+
+/* Unique Modal Footer */
+#uniqueApproveModal .unique-modal-footer {
+    margin-top: 20px; /* Spacing above the footer */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center buttons horizontally */
+    gap: 15px; /* Space between buttons */
+}
+
+/* Unique Generic Button Style */
+#uniqueApproveModal .unique-modal-footer button {
+    border: none;
+    border-radius: 8px; /* Rounded corners for buttons */
+    padding: 12px 20px; /* Adequate padding */
+    font-size: 16px; /* Font size for readability */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+/* Unique Yes, Approve Button */
+#uniqueApproveModal .unique-btn-yes {
+    background-color: #28a745; /* Green background for affirmative action */
+    color: #fff;
+}
+
+#uniqueApproveModal .unique-btn-yes:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+/* Unique Cancel Button */
+#uniqueApproveModal .unique-btn-cancel {
+    background-color: #007bff; /* Blue background for cancel action */
+    color: #fff;
+}
+
+#uniqueApproveModal .unique-btn-cancel:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+/* Unique Fade-in Animation */
+@keyframes uniqueApproveFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Unique Slide-in Animation */
+@keyframes uniqueApproveSlideIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}

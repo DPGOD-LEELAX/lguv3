@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'upload',
     'admin_panel',
+    'tracking',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

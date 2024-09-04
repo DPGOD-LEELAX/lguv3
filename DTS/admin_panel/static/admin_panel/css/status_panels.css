@@ -1,0 +1,106 @@
+/* Container for buttons and search input */
+.search-buttons-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    gap: 15px; /* Space between buttons and search input */
+}
+
+/* Status Buttons Container */
+.status-buttons-container {
+    display: flex;
+    gap: 15px; /* Increase space between buttons for a cleaner look */
+}
+
+/* Style for the buttons */
+.status-btn {
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    height: 40px; /* Ensure consistent height for alignment */
+    line-height: 1; /* Ensure text and icon align correctly */
+}
+
+/* Icon styling */
+.status-btn i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 18px;
+    color: #ffffff; /* Icon color */
+}
+
+/* Hover effect */
+.status-btn:hover {
+    background-color: #003d80; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Focus effect */
+.status-btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.8); /* Stronger focus shadow */
+}
+
+/* Specific button colors */
+#recent-btn {
+    background-color: #17a2b8; /* Light blue */
+}
+
+#approved-btn {
+    background-color: #28a745; /* Green */
+}
+
+#pending-btn {
+    background-color: #ffc107; /* Yellow */
+    color: #333;
+}
+
+#completed-btn {
+    background-color: #6c757d; /* Gray */
+}
+
+#in-progress-btn {
+    background-color: #007bff; /* Blue */
+}
+
+/* Specific button hover colors */
+#recent-btn:hover {
+    background-color: #138496;
+}
+
+#approved-btn:hover {
+    background-color: #218838;
+}
+
+#pending-btn:hover {
+    background-color: #e0a800;
+}
+
+#completed-btn:hover {
+    background-color: #5a6268;
+}
+
+#in-progress-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Search input styling */
+.search-container {
+    margin-left: auto; /* Push the search input to the right side */
+}
+
+#search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; /* Adjust width as needed */
+    height: 40px; /* Ensure consistent height for alignment */
+    box-sizing: border-box; /* Ensure padding is included in height */
+}

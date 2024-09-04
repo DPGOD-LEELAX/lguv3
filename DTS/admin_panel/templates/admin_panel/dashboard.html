@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{% static 'admin_panel/css/action_icons.css' %}" />
     <link rel="stylesheet" href="{% static 'admin_panel/css/generate_tracking.css' %}"/>
     <link rel="stylesheet" href="{% static 'admin_panel/css/disable.css' %}"/>
+    <link rel="stylesheet" href="{% static 'admin_panel/css/status_panels.css' %}"/>
+    <link rel="stylesheet" href="{% static 'admin_panel/css/approve.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     <div class="home-content">
 
@@ -28,7 +32,7 @@
                 
                 <i class="bx bx-cart-alt cart"></i>
             </div>
-            <div class="box">
+            {% comment %} <div class="box">
                 <div class="right-side">
                     <div class="box-topic">New Users</div>
                     <div class="number">38</div>
@@ -38,8 +42,8 @@
                     </div>
                 </div>
                 <i class="bx bxs-cart-add cart two"></i>
-            </div>
-            <div class="box">
+            </div> {% endcomment %}
+            {% comment %} <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Sales</div>
                     <div class="number">12,876</div>
@@ -59,7 +63,7 @@
                         <span class="text">Down from yesterday</span>
                     </div>
                 </div>
-                <i class="bx bxs-cart-download cart four"></i>
+                <i class="bx bxs-cart-download cart four"></i> {% endcomment %}
             </div>
         </div>
 
@@ -67,10 +71,32 @@
 
         <div class="document-section">
             <div class="recent-documents box">
-                <div class="section-title">Recent Documents</div>
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search documents..." />
+                <div class="section-title" id="section-title">Recent Documents</div>
+
+                <div class="search-buttons-row">
+                    <div class="search-buttons-container">
+                        <div class="status-buttons-container">
+                            <button class="status-btn" id="recent-btn"><i class="fas fa-clock"></i> Recent</button>
+                            <button class="status-btn" id="approved-btn"><i class="fas fa-check-circle"></i> Approved</button>
+                            <button class="status-btn" id="pending-btn"><i class="fas fa-hourglass-half"></i> Pending</button>
+                            <button class="status-btn" id="completed-btn"><i class="fas fa-flag-checkered"></i> Completed</button>
+                            <button class="status-btn" id="in-progress-btn"><i class="fas fa-spinner"></i> In-Progress</button>
+                        </div>
+                        <div class="search-container">
+                            <input type="text" id="search-input" placeholder="Search documents..." />
+                        </div>
+                    </div>
                 </div>
+                
+                    
+                    
+                    
+                
+                
+                
+                
+{% comment %} TABLE {% endcomment %}
+                
                 <div class="document-details">
                     <table class="document-table">
                         <thead>
@@ -114,8 +140,11 @@
                                             </a>
                                         </div>
                                         <div class="action-icon-box">
-                                            <a href="#" class="action-icon" title="Approve"><i class="bx bx-check"></i></a>
+                                            <a href="#" class="action-icon" title="Approve" onclick="uniqueConfirmApprove({{ document.id }})">
+                                                <i class="bx bx-check"></i>
+                                            </a>
                                         </div>
+                                        
                                         <div class="action-icon-box">
                                             <a href="{% url 'admin_panel:generate_tracking_slip' document.id %}" class="action-icon" title="Generate Tracking Slip">
                                                 <i class="bx bx-receipt"></i>
@@ -135,7 +164,7 @@
                 </div>
      
                 <!-- Pagination controls -->
-                <div class="pagination">
+                 <div class="pagination">
                     <span class="step-links">
                         {% if documents.has_previous %}
                             <a href="?page=1">&laquo; First</a>
@@ -151,7 +180,7 @@
                             <a href="?page={{ documents.paginator.num_pages }}">Last &raquo;</a>
                         {% endif %}
                     </span>
-                </div>
+                </div> 
                 
                 
             </div>
@@ -278,11 +307,7 @@
 
 {% comment %} GENERATE TACKING SLIP {% endcomment %}
 <!-- Trigger button -->
-<div class="action-icon-box">
-    <a href="#" class="action-icon" title="Generate Tracking Slip" onclick="openTrackingSlipModal({{ document.id }})">
-        <i class="bx bx-receipt"></i>
-    </a>
-</div>
+
 
 <!-- Modal Structure -->
 <div id="trackingSlipModal" class="modal">
@@ -298,6 +323,7 @@
 <div id="disable-modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal();">&times;</span>
+        <h2>Confirm Delete</h2>
         <p>Do you want to disable this uploaded document?</p>
         <input type="hidden" id="modal-item-id" value="">
         <div class="modal-footer">
@@ -306,6 +332,22 @@
         </div>
     </div>
 </div>
+
+<!-- Approve Confirmation Modal -->
+<div id="uniqueApproveModal" class="modal-approve">
+    <div class="unique-modal-content">
+        <span class="unique-modal-close">&times;</span> <!-- Updated class -->
+        <h2>Confirm Approval</h2>
+        <p>Are you sure you want to approve this document?</p>
+        <input type="hidden" id="uniqueApproveDocumentId" value="">
+        <div class="unique-modal-footer">
+            <button id="uniqueConfirmApproveBtn" class="unique-btn-yes">Yes, Approve</button>
+            <button class="unique-btn-cancel uniqueCloseModal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -331,7 +373,9 @@
     <script src="{% static 'admin_panel/js/edit_details.js' %}"></script>
     <script src="{% static 'admin_panel/js/generate_tracking.js' %}"></script>
     <script src="{% static 'admin_panel/js/disable.js' %}"></script>
-    <script>
+    <script src="{% static 'admin_panel/js/status_buttons.js' %}"></script>
+    <script src="{% static 'admin_panel/js/approve.js' %}"></script>
+
     
-    </script>
+ 
 {% endblock %}
