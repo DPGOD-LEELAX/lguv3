@@ -1,0 +1,52 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% block title %}Track Documents{% endblock %}
+
+{% block content %}
+    {% include 'admin_panel/nav.html' %}
+    
+    <!-- CSS for reference checker positioning -->
+    <link rel="stylesheet" href="{% static 'admin_panel/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'track_documents/css/track.css' %}">
+    <link rel="stylesheet" href="{% static 'track_documents/css/modal.css' %}">
+    
+    <div class="home-content">
+        <div class="reference-checker-container">
+            <div class="reference-checker">
+                <h2>Check Document by Reference Number</h2>
+                <form id="reference-check-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="reference-number">Enter Reference Number:</label>
+                        <input type="text" id="reference-number" name="reference_number" placeholder="Reference Number" required>
+                        <button type="submit" class="btn-check">
+                            <i class="fas fa-search"></i> Check
+                        </button>
+                    </div>
+                    <div id="checker-result" class="result"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- The Modal for showing document result -->
+        <div id="reference-result-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Document Status</h2>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div id="modal-result-content" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button id="print-button" class="btn btn-print">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button id="cancel-button" class="btn btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'track_documents/js/track.js' %}"></script>
+{% endblock %}

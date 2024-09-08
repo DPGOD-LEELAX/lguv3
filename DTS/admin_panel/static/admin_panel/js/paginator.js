@@ -1,12 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const prevButton = document.querySelector('.prev-button');
-    const nextButton = document.querySelector('.next-button');
     const documentTable = document.querySelector('.document-table');
-    
     let currentPage = 1;
 
+    // Event delegation for paginator buttons
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('.prev-button')) {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable('previous');
+                // Fetch the previous page
+                filterDocuments(document.getElementById('section-title').dataset.status, currentPage);
+            }
+        }
+
+        if (event.target.closest('.next-button')) {
+            currentPage++;
+            updateTable('next');
+            // Fetch the next page
+            filterDocuments(document.getElementById('section-title').dataset.status, currentPage);
+        }
+    });
+
+    // Function to update the table's visual effect when switching pages
     function updateTable(direction) {
-        // Add the appropriate class based on the direction of the transition
         if (direction === 'next') {
             documentTable.classList.add('next-page');
         } else if (direction === 'previous') {
@@ -19,18 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
             documentTable.classList.add('fade-in');
         }, 500);
     }
-
-    prevButton.addEventListener('click', function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable('previous');
-            // Logic to update table content based on currentPage
-        }
-    });
-
-    nextButton.addEventListener('click', function() {
-        currentPage++;
-        updateTable('next');
-        // Logic to update table content based on currentPage
-    });
 });

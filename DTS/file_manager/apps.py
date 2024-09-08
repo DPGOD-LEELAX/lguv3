@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TrackingConfig(AppConfig):
+class FileManagerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tracking'
+    name = 'file_manager'

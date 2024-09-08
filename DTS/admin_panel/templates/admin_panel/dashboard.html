@@ -81,12 +81,16 @@
                             <button class="status-btn" id="pending-btn"><i class="fas fa-hourglass-half"></i> Pending</button>
                             <button class="status-btn" id="completed-btn"><i class="fas fa-flag-checkered"></i> Completed</button>
                             <button class="status-btn" id="in-progress-btn"><i class="fas fa-spinner"></i> In-Progress</button>
+                            <!-- New Buttons -->
+                            <button class="status-btn" id="disabled-btn"><i class="fas fa-ban"></i> Disabled</button>
+                            <button class="status-btn" id="archived-btn"><i class="fas fa-archive"></i> Archived</button>
                         </div>
                         <div class="search-container">
                             <input type="text" id="search-input" placeholder="Search documents..." />
                         </div>
                     </div>
                 </div>
+                
                 
                     
                     
@@ -146,10 +150,11 @@
                                         </div>
                                         
                                         <div class="action-icon-box">
-                                            <a href="{% url 'admin_panel:generate_tracking_slip' document.id %}" class="action-icon" title="Generate Tracking Slip">
+                                            <a href="{% url 'admin_panel:generate_tracking_slip' document.id %}" class="action-icon" title="Generate Tracking Slip" target="_blank">
                                                 <i class="bx bx-receipt"></i>
                                             </a>
                                         </div>
+                                        
                                         
                                     </div>
                                     
@@ -310,13 +315,16 @@
 
 
 <!-- Modal Structure -->
-<div id="trackingSlipModal" class="modal">
+<!-- Modal Structure -->
+{% comment %} <div id="trackingSlipModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeTrackingSlipModal()">&times;</span>
         <h2>Tracking Slip</h2>
-        <iframe id="trackingSlipIframe" style="width:100%; height:500px;" frameborder="0"></iframe>
+        <div id="loadingIndicator" style="display: none;">Loading...</div>
+        <iframe id="trackingSlipIframe" style="width:100%; height:500px; border: none;" frameborder="0"></iframe>
     </div>
-</div>
+</div> {% endcomment %}
+
 
 
 <!-- Disable Modal Structure -->
@@ -352,16 +360,35 @@
 
 
 
+
+
+{% comment %} 
 <script>
     function openTrackingSlipModal(documentId) {
         const iframe = document.getElementById('trackingSlipIframe');
-        iframe.src = `/document/${documentId}/generate_tracking_slip/`; 
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // Show loading indicator
+        loadingIndicator.style.display = 'block';
+        iframe.style.display = 'none';
+    
+        // Set iframe source
+        iframe.src = `/document/${documentId}/generate_tracking_slip/`;
+    
+        // Show the modal
         document.getElementById('trackingSlipModal').style.display = 'block';
+    
+        // Hide loading indicator and show iframe once content is loaded
+        iframe.onload = function() {
+            loadingIndicator.style.display = 'none';
+            iframe.style.display = 'block';
+        };
     }
     
     function closeTrackingSlipModal() {
         document.getElementById('trackingSlipModal').style.display = 'none';
-    }
+    } {% endcomment %}
+    
     
 </script>
 

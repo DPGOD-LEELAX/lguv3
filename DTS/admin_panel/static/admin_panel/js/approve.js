@@ -39,7 +39,6 @@ function uniqueHandleApprove() {
     });
 }
 
-
 // Function to get CSRF token from cookies
 function uniqueGetCookie(name) {
     let cookieValue = null;
@@ -56,6 +55,20 @@ function uniqueGetCookie(name) {
     return cookieValue;
 }
 
+// Use event delegation to listen for clicks on dynamically created elements
+document.addEventListener('click', function(event) {
+    // Handle clicks on the "Approve" button (using event delegation)
+    if (event.target.closest('.action-icon[title="Approve"]')) {
+        const docId = event.target.closest('.action-icon').dataset.docId;
+        uniqueConfirmApprove(docId);
+    }
+
+    // Handle modal close if clicked outside the modal
+    if (event.target === document.getElementById('uniqueApproveModal')) {
+        uniqueCloseModal();
+    }
+});
+
 // Event listener for the "Yes, Approve" button
 document.getElementById('uniqueConfirmApproveBtn').addEventListener('click', uniqueHandleApprove);
 
@@ -64,9 +77,13 @@ document.querySelectorAll('.unique-btn-cancel, .unique-modal-close').forEach(but
     button.addEventListener('click', uniqueCloseModal);
 });
 
-// Event listener for clicking outside the modal to close it
-window.addEventListener('click', function(event) {
-    if (event.target === document.getElementById('uniqueApproveModal')) {
-        uniqueCloseModal();
-    }
-});
+// Function to re-attach event listeners for dynamically generated content
+function reAttachApproveListeners() {
+    // Event listener for the "Yes, Approve" button
+    document.getElementById('uniqueConfirmApproveBtn').addEventListener('click', uniqueHandleApprove);
+
+    // Event listener for the "Cancel" button and the close button
+    document.querySelectorAll('.unique-btn-cancel, .unique-modal-close').forEach(button => {
+        button.addEventListener('click', uniqueCloseModal);
+    });
+}

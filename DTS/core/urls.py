@@ -9,6 +9,7 @@ urlpatterns = [
     path('dashboard/', include('admin_panel.urls', namespace='admin_panel_dashboard')),  # Unique namespace
     path('', include('admin_panel.urls', namespace='admin_panel_home')),  # Unique namespace
     path('upload/', include('upload.urls')),  # Ensure this path is correct
+    path('track-documents/', include('track_documents.urls')),
 ]
 
 if settings.DEBUG:

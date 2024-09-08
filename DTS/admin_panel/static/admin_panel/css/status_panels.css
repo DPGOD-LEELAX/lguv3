@@ -70,6 +70,15 @@
     background-color: #007bff; /* Blue */
 }
 
+/* New button colors */
+#disabled-btn {
+    background-color: #dc3545; /* Red */
+}
+
+#archived-btn {
+    background-color: #6c757d; /* Gray */
+}
+
 /* Specific button hover colors */
 #recent-btn:hover {
     background-color: #138496;
@@ -89,6 +98,23 @@
 
 #in-progress-btn:hover {
     background-color: #0056b3;
+}
+
+/* New button hover colors */
+#disabled-btn:hover {
+    background-color: #c82333;
+}
+
+#archived-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Active button style */
+.status-btn.active {
+    background-color: #004085; /* Darker shade for active button */
+    color: #ffffff; /* Ensure text is readable */
+    font-weight: 700; /* Make text bold */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for emphasis */
 }
 
 /* Search input styling */

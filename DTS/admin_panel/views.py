@@ -10,6 +10,7 @@ from io import BytesIO
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+
 class DashboardView(View):
     def get(self, request):
         status = request.GET.get('status', 'recent')  # Default to 'recent' if no status is provided
@@ -133,6 +134,10 @@ class FilterDocumentsView(View):
             documents = Document.objects.filter(status='Completed').order_by('-uploaded_at')
         elif status == 'in_progress':
             documents = Document.objects.filter(status='In Progress').order_by('-uploaded_at')
+        elif status == 'disabled':
+            documents = Document.objects.filter(status='Disabled').order_by('-uploaded_at')
+        elif status == 'archived':
+            documents = Document.objects.filter(status='Archived').order_by('-uploaded_at')
         else:
             documents = Document.objects.none()
 
@@ -149,3 +154,4 @@ class FilterDocumentsView(View):
             'current_page': page_obj.number,
             'total_pages': paginator.num_pages
         })
+
