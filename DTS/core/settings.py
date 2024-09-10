@@ -1,18 +1,12 @@
-import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-b@uul-7g&f_0v7s!eb0%d!3u4qj_b_ullx7+nzd%8#pasmvxim'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -46,7 +40,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,24 +92,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     BASE_DIR / "admin_panel" / "static",
     BASE_DIR / "upload" / "static",
     BASE_DIR / "track_documents" / "static",
+    BASE_DIR / "file_manager" / "static",
 ]
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded_documents')
+MEDIA_ROOT = BASE_DIR / 'uploaded_documents' / 'documents'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATIC_URL = '/static/'
-
-# Directory where collectstatic will collect static files for deployment
-STATIC_ROOT = BASE_DIR / "staticfiles"
-

@@ -1,0 +1,33 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+{% block title %}File Manager{% endblock %}
+
+{% block content %}
+    {% include 'admin_panel/nav.html' %}
+    <link rel="stylesheet" href="{% static 'file_manager/css/file_manager.css' %}">
+    <div class="home-content">
+        <div class="file-manager-container">
+            <h2>File Manager</h2>
+            <div class="file-manager-grid">
+                {% for file in files %}
+                <div class="file-item"
+                    data-path="{{ file.full_path }}"
+                    draggable="true"
+                    data-type="{% if file.is_dir %}folder{% else %}file{% endif %}">
+                {% if file.is_dir %}
+                    <div class="file-icon folder-icon">📁</div>
+                    <span class="file-name">{{ file.name }}</span>
+                {% else %}
+                    <div class="file-icon {% if file.extension == '.pdf' %}pdf-icon{% elif file.extension == '.docx' %}docx-icon{% elif file.extension == '.xlsx' %}xlsx-icon{% elif file.extension == '.txt' %}txt-icon{% elif file.extension == '.ppt' %}ppt-icon{% elif file.extension == '.jpg' %}jpg-icon{% elif file.extension == '.nft' %}nft-icon{% elif file.extension == '.mp4' %}video-icon{% elif file.extension == '.torrent' %}torrent-icon{% else %}default-icon{% endif %}">
+                        {% if file.extension == '.pdf' %}PDF{% elif file.extension == '.docx' %}DOCX{% elif file.extension == '.xlsx' %}XLSX{% elif file.extension == '.txt' %}TXT{% elif file.extension == '.ppt' %}PPT{% elif file.extension == '.jpg' %}JPG{% elif file.extension == '.nft' %}NFT{% elif file.extension == '.mp4' %}VID{% elif file.extension == '.torrent' %}TOR{% else %}FILE{% endif %}
+                    </div>
+                    <span class="file-name">{{ file.name }}</span>
+                {% endif %}
+            </div>
+           
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'file_manager/js/file_manager.js' %}"></script>
+{% endblock %}

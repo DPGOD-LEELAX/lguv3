@@ -1,0 +1,130 @@
+/* General Styles */
+.file-manager-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-manager-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.file-manager-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.file-item {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s;
+    pointer-events: auto; /* Ensure the file-item is clickable */
+}
+
+.file-item:hover {
+    transform: scale(1.05);
+}
+
+/* File Icon Styles */
+.file-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 64px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Specific File Icons */
+.folder-icon {
+    background-color: #f5c6c6; /* Light red for folder */
+    content: "\1F4C1"; /* Unicode character for folder */
+}
+
+.pdf-icon {
+    background-color: #d9534f; /* Red */
+    content: "PDF";
+}
+
+.docx-icon {
+    background-color: #007bff; /* Blue */
+    content: "DOCX";
+}
+
+.xlsx-icon {
+    background-color: #28a745; /* Green */
+    content: "XLSX";
+}
+
+.txt-icon {
+    background-color: #6c757d; /* Grey */
+    content: "TXT";
+}
+
+.ppt-icon {
+    background-color: #ffc107; /* Yellow */
+    content: "PPT";
+}
+
+.jpg-icon {
+    background-color: #343a40; /* Dark grey */
+    content: "JPG";
+}
+
+.nft-icon {
+    background-color: #17a2b8; /* Teal */
+    content: "NFT";
+}
+
+.video-icon {
+    background-color: #6610f2; /* Purple */
+    content: "VID";
+}
+
+.torrent-icon {
+    background-color: #e83e8c; /* Pink */
+    content: "TOR";
+}
+
+.default-icon {
+    background-color: #ced4da; /* Light grey */
+    content: "FILE";
+}
+
+/* File Name Styles */
+.file-name {
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word;
+    margin-top: 8px; /* Adjust spacing between icon and file name */
+}
+
+/* Add styles for dragging over an item */
+.file-item.over {
+    border: 2px dashed #007bff; /* Blue border when dragging over */
+}
+
+/* Style for dragging */
+.file-item.dragging {
+    opacity: 0.5; /* Reduce opacity of the dragged item */
+}
